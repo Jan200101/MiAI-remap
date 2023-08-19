@@ -35,6 +35,12 @@ XDA-Developers Thread: https://forum.xda-developers.com/Mi-9/themes/mod-mi-ai-bu
 
 ## Changelog
 
+2023-08-19: v0.5
+
+- Remove usage of the AI button (this prevents issues when AI is not mapped by default by the ROM)
+- put Other on Volume down
+- loop selection until choice is made
+
 2019-04-18: v0.4
 
 - No double tap (It cannot actually work - no mapping equivalent)

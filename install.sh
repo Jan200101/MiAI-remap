@@ -138,7 +138,6 @@ on_install() {
   device_check
 
   ui_print "- Configuring Xiaomi AI button..."
-  ui_print "Single tap configuration"
   ui_print ""
   ui_print "Make a choice from the following functions:"
   ui_print ""
@@ -162,27 +161,42 @@ on_install() {
   ui_print "Use the hardware buttons to make a selection."
   ui_print ""
   
-  q_and_a CAMERA SYSRQ Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a SEARCH VOICE_ASSIST Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a CALL CONTACTS Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a MUSIC VOLUME_MUTE Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a MEDIA_PLAY_PAUSE MEDIA_NEXT Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a APP_SWITCH QPANEL_ON_OFF Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a EXPLORER CALENDAR Other
-  q_and_a 
-  [ -z "$CHOICE" ] && q_and_a CALCULATOR NOF Other
-  q_and_a 
-  if [ -z "$CHOICE" ]; then
-    ui_print "- No choice made. Using CAMERA."
-    CHOICE=CAMERA
-  fi
-  
+  while [ -z "$CHOICE" ]
+  do
+    [ -z "$CHOICE" ] && q_and_a CAMERA Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a SYSRQ Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a SEARCH Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a VOICE_ASSIST Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a CALL Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a CONTACTS Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a MUSIC Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a VOLUME_MUTE Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a MEDIA_PLAY_PAUSE Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a MEDIA_NEXT Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a APP_SWITCH Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a QPANEL_ON_OFF Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a EXPLORER Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a CALENDAR Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a CALCULATOR Other
+    [ -z "$CHOICE" ] && q_and_a
+    [ -z "$CHOICE" ] && q_and_a NOF Other
+    [ -z "$CHOICE" ] && q_and_a
+  done
+
   kl=/system/usr/keylayout/gpio-keys.kl
   
   sed -i -re 's/(key 689 +)[A-Z]+$/\1'$CHOICE'/' $MODPATH$kl
@@ -220,7 +234,6 @@ q_and_a() {
   fi
   local choice1="     [Vol Up]   = $1"
   local choice2="     [Vol Down] = $2"
-  local choice3="     [AI]    = $3"
 
   ui_print "- Which function?"
   ui_print "$choice1"
@@ -229,7 +242,7 @@ q_and_a() {
 
   local n=99
   until [ $n -le $# ]; do
-    unset UP DOWN AI
+    unset UP DOWN
     local a=$(get_key)
 
     case $a in
@@ -240,10 +253,6 @@ q_and_a() {
       *DOWN)
         DOWN=true
         n=2
-        ;;
-      *AI)
-        AI=true
-        n=3
         ;;
       *)
 	      n=99

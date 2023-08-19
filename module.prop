@@ -1,6 +1,6 @@
 id=XiaomiAI-remap
 name=Xiaomi AI button remapper
-version=v0.4
+version=v0.5
 versionCode=1
 author=Cr0wTom
 description=Remaps AI button on Xiaomi Mi 9 and Mi Mix 3 to 1 of 15 functions.
